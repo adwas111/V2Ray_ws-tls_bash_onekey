@@ -18,20 +18,22 @@ cd "$(
 #fonts color
 Green="\033[32m"
 Red="\033[31m"
-# Yellow="\033[33m"
+#Yellow="\033[33m"
 GreenBG="\033[42;37m"
 RedBG="\033[41;37m"
+YellowBG="\033[43;37m"
 Font="\033[0m"
 
 #notification information
 # Info="${Green}[信息]${Font}"
 OK="${Green}[OK]${Font}"
 Error="${Red}[错误]${Font}"
+Warning="${Red}[警告]${Font}"
 
 # 版本
-shell_version="1.1.9.0"
+shell_version="1.1.8.4"
 shell_mode="None"
-github_branch="master"
+github_branch="dev"
 version_cmp="/tmp/version_cmp.tmp"
 v2ray_conf_dir="/etc/v2ray"
 nginx_conf_dir="/etc/nginx/conf/conf.d"
@@ -84,10 +86,6 @@ check_system() {
     elif [[ "${ID}" == "ubuntu" && $(echo "${VERSION_ID}" | cut -d '.' -f1) -ge 16 ]]; then
         echo -e "${OK} ${GreenBG} 当前系统为 Ubuntu ${VERSION_ID} ${UBUNTU_CODENAME} ${Font}"
         INS="apt"
-        rm /var/lib/dpkg/lock
-        dpkg --configure -a
-        rm /var/lib/apt/lists/lock
-        rm /var/cache/apt/archives/lock
         $INS update
     else
         echo -e "${Error} ${RedBG} 当前系统为 ${ID} ${VERSION_ID} 不在支持的系统列表内，安装中断 ${Font}"
